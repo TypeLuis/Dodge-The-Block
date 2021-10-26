@@ -32,35 +32,25 @@ section{
     width: 500px;
     height: 200px;
     border: 1px solid black;
+    background-image: url('/assets/vecteezy_technology-background_yd0321_generated.jpg');
     position: relative;
     top: 20%;
     left: 14.5%;
 }
 #character{
     width: 20px;
-    height: 50px;
-    background-color: black;
+    height: 20px;
+    background-color: yellow;
     position: relative;
-    top: 150px;
+    top: 179px;
 }
-.animate{
-    animation: jump 500ms infinite;
-}
-
-@keyframes jump{
-    0%{top: 150px;}
-    30%{top: 100px;}
-    70%{top: 100px;}
-    100%{top: 150px;}
-}
-
 
 #block{
     width: 20px;
     height: 20px;
     background-color: brown;
     position: relative;
-    top: 130px;
+    top: 160px;
     left: 480px;
     animation: block 3s infinite linear;
 }

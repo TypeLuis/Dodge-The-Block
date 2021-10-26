@@ -22,4 +22,30 @@ function getRandomInt(min, max) {
     min = Math.ceil(min);
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min) + min); //The maximum is exclusive and the minimum is inclusive
+}
+
+
+// Sources to help improve knowledege of switch
+// https://www.youtube.com/watch?v=xDY1TTM9sGs
+// https://www.w3schools.com/jsref/jsref_switch.asp
+
+document.addEventListener('keydown', function(e) {
+  // inside of switch, we place a parameter, this case is the document
+  // (e)"e can be anything" declares the document that we selected
+  // keyCode are different codes that defines the characters on a keyboard
+  switch (e.keyCode) {
+    // case are different cases that can happen in a switch like a conditional. this one is saying if keycode 38('up arrow') is pressed, run this following command
+      case 37:
+          console.log('left');
+          break;
+      case 38:
+          console.log('up');
+          break;
+      case 39:
+        console.log('right');
+          break;
+      case 40:
+        console.log('down');
+          break;
   }
+});
