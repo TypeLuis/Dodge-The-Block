@@ -45,16 +45,86 @@ section{
     top: 179px; */
 }
 
-#block{
+#block1{
     width: 20px;
     height: 18px;
     background-color: brown;
     position: relative;
     top: 162px;
     left: 480px;
-    animation: block 3s infinite linear;
 }
 
+#block2{
+    width: 20px;
+    height: 18px;
+    background-color: brown;
+    position: absolute;
+    top:  142px;
+    left: 480px;
+}
+
+#block3{
+    width: 20px;
+    height: 18px;
+    background-color: brown;
+    position: absolute;
+    top:  122px;
+    left: 480px;
+}
+
+#block4{
+    width: 20px;
+    height: 18px;
+    background-color: brown;
+    position: absolute;
+    top:  102px;
+    left: 480px;
+}
+
+#block5{
+    width: 20px;
+    height: 18px;
+    background-color: brown;
+    position: absolute;
+    top:  82px;
+    left: 480px;
+}
+
+#block6{
+    width: 20px;
+    height: 18px;
+    background-color: brown;
+    position: absolute;
+    top:  62px;
+    left: 480px;
+}
+
+#block7{
+    width: 20px;
+    height: 18px;
+    background-color: brown;
+    position: absolute;
+    top:  42px;
+    left: 480px;
+}
+
+#block8{
+    width: 20px;
+    height: 18px;
+    background-color: brown;
+    position: absolute;
+    top:  22px;
+    left: 480px;
+}
+
+#block9{
+    width: 20px;
+    height: 18px;
+    background-color: brown;
+    position: absolute;
+    top:  2px;
+    left: 480px;
+}
 
 @keyframes block{
     0%{left:480;}

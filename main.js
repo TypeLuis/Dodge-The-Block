@@ -15,34 +15,37 @@
 // c.fillRect(200, 400, 100, 100)
 // c.fillRect(400, 400, 200, 200)
 
-const block = document.getElementById('block')
+const block = document.getElementById('block1')
 const character = document.getElementById('character')
+const blocks = document.getElementsByClassName('blocks')
 let checkDead
 
 //The Window.getComputedStyle() method returns an object containing the values of all CSS properties of an element, after applying active stylesheets and resolving any basic computation those values may contain.
-characterStyle = window.getComputedStyle(character)
+// characterStyle = window.getComputedStyle(character)
 
-
-
-console.log(characterStyle)
-
-
-character.style.position = 'relative'
-character.style.top = '179px'
-character.style.left = '0px'
-console.log(parseInt(character.style.top))
-
-
-
-
-
-
+// console.log(characterStyle)
+// console.log(characterStyle.getPropertyValue('background-color'))
 
 
 function getRandomInt(min, max) {
     min = Math.ceil(min);
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min) + min); //The maximum is exclusive and the minimum is inclusive
+}
+
+function getRandomArbitrary(min, max) {
+  return Math.random() * (max - min) + min;
+}
+
+character.style.position = 'relative'
+character.style.top = '179px'
+character.style.left = '0px'
+
+console.log(block.style.animation)
+
+for(let block of blocks){
+  console.log(block)
+  block.style.animation = `block ${getRandomArbitrary(1, 5)}s infinite linear`
 }
 
 
@@ -91,15 +94,17 @@ document.addEventListener('keydown', function(e) {
 // getBoundingClientRect() returns an object providing the size of an element and its position relative to the viewport : https://developer.mozilla.org/en-US/docs/Web/API/Element/getBoundingClientRect
 
 checkDead = setInterval(() =>{
-  let blockrect = block.getBoundingClientRect()
-  let characterRect = character.getBoundingClientRect()
-
-  if(characterRect.x < blockrect.x +characterRect.width &&
-    characterRect.x + characterRect.width > blockrect.x &&
-    characterRect.y < blockrect.y + blockrect.height &&
-    characterRect.y + characterRect.height > blockrect.y
-    ){
-      clearInterval(checkDead)
-      console.log('hit detected')
-    }
+  for(let block of blocks){
+    let blockrect = block.getBoundingClientRect()
+    let characterRect = character.getBoundingClientRect()
+  
+    if(characterRect.x < blockrect.x +characterRect.width &&
+      characterRect.x + characterRect.width > blockrect.x &&
+      characterRect.y < blockrect.y + blockrect.height &&
+      characterRect.y + characterRect.height > blockrect.y
+      ){
+        clearInterval(checkDead)
+        console.log('hit detected')
+      }
+  }
 })
