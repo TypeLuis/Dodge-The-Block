@@ -18,6 +18,17 @@
 
 const character = document.getElementById('character')
 
+
+character.style.position = 'relative'
+character.style.top = '179px'
+console.log(parseInt(character.style.top))
+
+
+
+
+
+
+
 function getRandomInt(min, max) {
     min = Math.ceil(min);
     max = Math.floor(max);
@@ -39,13 +50,22 @@ document.addEventListener('keydown', function(e) {
           console.log('left');
           break;
       case 38:
+        if(parseInt(character.style.top) > -1){
           console.log('up');
-          break;
+          let moveUp = parseInt(character.style.top) - 20 
+          character.style.top = `${moveUp}px`
+          console.log(character.style.top)
+        }
+        break;
       case 39:
         console.log('right');
           break;
       case 40:
-        console.log('down');
+        if(parseInt(character.style.top) < 179){
+          let moveDown = parseInt(character.style.top) + 20
+          character.style.top = `${moveDown}px`
+          console.log('down');
+        }
           break;
   }
 });

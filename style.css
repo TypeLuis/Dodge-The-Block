@@ -41,16 +41,16 @@ section{
     width: 20px;
     height: 20px;
     background-color: yellow;
-    position: relative;
-    top: 179px;
+    /* position: relative;
+    top: 179px; */
 }
 
 #block{
     width: 20px;
-    height: 20px;
+    height: 18px;
     background-color: brown;
     position: relative;
-    top: 160px;
+    top: 162px;
     left: 480px;
     animation: block 3s infinite linear;
 }
