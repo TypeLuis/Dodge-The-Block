@@ -17,14 +17,15 @@
 
 const block = document.getElementById('block')
 const character = document.getElementById('character')
+let checkDead
 
 //The Window.getComputedStyle() method returns an object containing the values of all CSS properties of an element, after applying active stylesheets and resolving any basic computation those values may contain.
 characterStyle = window.getComputedStyle(character)
 
-characterRect = character.getBoundingClientRect()
+
 
 console.log(characterStyle)
-console.log(characterRect)
+
 
 character.style.position = 'relative'
 character.style.top = '179px'
@@ -32,7 +33,7 @@ character.style.left = '0px'
 console.log(parseInt(character.style.top))
 
 
-let blockrect = block.getBoundingClientRect()
+
 
 
 
@@ -75,13 +76,30 @@ document.addEventListener('keydown', function(e) {
           break;
       case 40:
         if(parseInt(character.style.top) < 179){
-          blockrect = block.getBoundingClientRect()
           let moveDown = parseInt(character.style.top) + 20
           character.style.top = `${moveDown}px`
-          console.log(blockrect);
         }
           break;
   }
 });
 
 
+
+
+// how to check collision detection between rectangles? https://www.youtube.com/watch?v=r0sy-Cr6WHY
+
+// getBoundingClientRect() returns an object providing the size of an element and its position relative to the viewport : https://developer.mozilla.org/en-US/docs/Web/API/Element/getBoundingClientRect
+
+checkDead = setInterval(() =>{
+  let blockrect = block.getBoundingClientRect()
+  let characterRect = character.getBoundingClientRect()
+
+  if(characterRect.x < blockrect.x +characterRect.width &&
+    characterRect.x + characterRect.width > blockrect.x &&
+    characterRect.y < blockrect.y + blockrect.height &&
+    characterRect.y + characterRect.height > blockrect.y
+    ){
+      clearInterval(checkDead)
+      console.log('hit detected')
+    }
+})
