@@ -15,15 +15,24 @@
 // c.fillRect(200, 400, 100, 100)
 // c.fillRect(400, 400, 200, 200)
 
-
+const block = document.getElementById('block')
 const character = document.getElementById('character')
 
+//The Window.getComputedStyle() method returns an object containing the values of all CSS properties of an element, after applying active stylesheets and resolving any basic computation those values may contain.
+characterStyle = window.getComputedStyle(character)
+
+characterRect = character.getBoundingClientRect()
+
+console.log(characterStyle)
+console.log(characterRect)
 
 character.style.position = 'relative'
 character.style.top = '179px'
+character.style.left = '0px'
 console.log(parseInt(character.style.top))
 
 
+let blockrect = block.getBoundingClientRect()
 
 
 
@@ -47,25 +56,32 @@ document.addEventListener('keydown', function(e) {
   switch (e.keyCode) {
     // case are different cases that can happen in a switch like a conditional. this one is saying if keycode 38('up arrow') is pressed, run this following command
       case 37:
-          console.log('left');
-          break;
+        if(parseInt(character.style.left) > 0){
+          let moveLeft = parseInt(character.style.left) - 50 
+          character.style.left = `${moveLeft}px`  
+        }
+        break;
       case 38:
         if(parseInt(character.style.top) > -1){
-          console.log('up');
           let moveUp = parseInt(character.style.top) - 20 
           character.style.top = `${moveUp}px`
-          console.log(character.style.top)
         }
         break;
       case 39:
-        console.log('right');
+        if(parseInt(character.style.left) < 450){
+          let moveRight = parseInt(character.style.left) + 50 
+          character.style.left = `${moveRight}px`
+        }
           break;
       case 40:
         if(parseInt(character.style.top) < 179){
+          blockrect = block.getBoundingClientRect()
           let moveDown = parseInt(character.style.top) + 20
           character.style.top = `${moveDown}px`
-          console.log('down');
+          console.log(blockrect);
         }
           break;
   }
 });
+
+

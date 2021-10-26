@@ -58,7 +58,7 @@ section{
 
 @keyframes block{
     0%{left:480;}
-    100%{left: -30px;}
+    100%{left: -10px;}
 }
 
 #controllerLeft{
