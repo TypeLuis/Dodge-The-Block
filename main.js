@@ -1,20 +1,4 @@
-// let canvas = document.querySelector('canvas')
-
-// // window.inner width and height gets the width of current page
-
-// canvas.width = window.innerWidth
-// canvas.height = window.innerHeight
-
-
-// // C in canvas is = to context
-// // get context has a ton of functions we can use to draw inside canvas
-// let c = canvas.getContext('2d')
-
-// // takes x, y, width, height
-// c.fillRect(100, 100, 100, 100)
-// c.fillRect(200, 400, 100, 100)
-// c.fillRect(400, 400, 200, 200)
-
+const buttonTest = document.getElementById('button1')
 const block = document.getElementById('block1')
 const character = document.getElementById('character')
 const blocks = document.getElementsByClassName('blocks')
@@ -22,7 +6,6 @@ let checkDead
 
 //The Window.getComputedStyle() method returns an object containing the values of all CSS properties of an element, after applying active stylesheets and resolving any basic computation those values may contain.
 // characterStyle = window.getComputedStyle(character)
-
 // console.log(characterStyle)
 // console.log(characterStyle.getPropertyValue('background-color'))
 
@@ -41,12 +24,31 @@ character.style.position = 'relative'
 character.style.top = '179px'
 character.style.left = '0px'
 
-console.log(block.style.animation)
+
+function moveBlock(block){
+
+}
+
 
 for(let block of blocks){
-  console.log(block)
-  block.style.animation = `block ${getRandomArbitrary(1, 5)}s infinite linear`
+  block.style.animation = `block ${getRandomArbitrary(5, 10)}s infinite linear`
 }
+
+// interval that checks if the block css style "left" is less than 0 pixels
+// once it checks, the block's animation is null and give it 50 ms to start back up
+setInterval(() => {
+  for(let block of blocks){
+    blockStyle = window.getComputedStyle(block)
+    if(parseInt(blockStyle.getPropertyValue('left')) < 0){
+      block.style.animation = ""
+      setTimeout(() => {
+        block.style.animation = `block ${getRandomInt(5, 10)}s infinite linear`
+      }, 50);
+
+    }
+  }
+}, 50);
+
 
 
 // Sources to help improve knowledege of switch
@@ -61,7 +63,7 @@ document.addEventListener('keydown', function(e) {
     // case are different cases that can happen in a switch like a conditional. this one is saying if keycode 38('up arrow') is pressed, run this following command
       case 37:
         if(parseInt(character.style.left) > 0){
-          let moveLeft = parseInt(character.style.left) - 50 
+          let moveLeft = parseInt(character.style.left) - 20 
           character.style.left = `${moveLeft}px`  
         }
         break;
@@ -72,8 +74,8 @@ document.addEventListener('keydown', function(e) {
         }
         break;
       case 39:
-        if(parseInt(character.style.left) < 450){
-          let moveRight = parseInt(character.style.left) + 50 
+        if(parseInt(character.style.left) < 440){
+          let moveRight = parseInt(character.style.left) + 20 
           character.style.left = `${moveRight}px`
         }
           break;
@@ -107,4 +109,4 @@ checkDead = setInterval(() =>{
         console.log('hit detected')
       }
   }
-})
+}, 10)
