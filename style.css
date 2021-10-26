@@ -1,0 +1,143 @@
+/* canvas{
+    border: 1px solid black;
+    background-color: red;
+}
+
+body tags usually have 8 margin */
+body{
+    margin: 0;
+    padding: 0;
+}
+
+#tablet{
+    width: 700px;
+    height: 350px;
+    background-color: royalblue;
+    position: absolute;
+    top: 35%;
+    left: 35%;
+}
+
+
+#game{
+    width: 500px;
+    height: 200px;
+    border: 1px solid black;
+    position: relative;
+    top: 20%;
+    left: 14.5%;
+}
+#character{
+    width: 20px;
+    height: 50px;
+    background-color: black;
+    position: relative;
+    top: 150px;
+}
+.animate{
+    animation: jump 500ms infinite;
+}
+
+@keyframes jump{
+    0%{top: 150px;}
+    30%{top: 100px;}
+    70%{top: 100px;}
+    100%{top: 150px;}
+}
+
+
+#block{
+    width: 20px;
+    height: 20px;
+    background-color: brown;
+    position: relative;
+    top: 130px;
+    left: 480px;
+    animation: block 3s infinite linear;
+}
+
+
+@keyframes block{
+    0%{left:480;}
+    100%{left: -30px;}
+}
+
+#controllerLeft{
+    height: 350px;
+    width: 200px;
+    background-color: blueviolet;
+    position: absolute;
+    top: 35%;
+    left: 27.5%;
+    border-radius: 50% 0 0 50%;
+}
+
+#controllerRight{
+    height: 350px;
+    width: 200px;
+    background-color: blueviolet;
+    position: absolute;
+    top: 35%;
+    left: 62.5%;
+    border-radius: 0 50% 50% 0;
+}
+
+.leftUpButtons{
+    height: 50px;
+    width: 20px;
+}
+.leftSideButtons{
+    width: 50px;
+    height: 20px;
+}
+
+#button1{
+    position: relative;
+    top: 97px;
+    left: 100px;
+}
+
+#button2{
+    position: relative;
+    top: 140px;
+    left: 19px;
+}
+
+#button3{
+    position: relative;
+    top: 185px;
+    left: 22px;
+}
+
+#button4{
+    position: relative;
+    top: 140px;
+    left: 25px;
+}
+
+.rightButton{
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+}
+
+#buttonA{
+    position: relative;
+    top: 40%;
+    left: 20%;
+}
+
+#buttonB{
+    position: relative;
+    top: 30%;
+    left: 20%;
+}
+
+.test{
+    width: 0; 
+    height: 0; 
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    
+    border-bottom: 5px solid black;
+}
