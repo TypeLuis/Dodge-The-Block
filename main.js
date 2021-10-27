@@ -107,14 +107,15 @@ function checkCollision(){
 }
 checkCollision()
 
-console.log(tabPrice.id.split(' ')[0])
-console.log(tabButton.id.split(' ')[0])
+// console.log(tabPrice.id.split(' ')[0])
+// console.log(tabButton.id.split(' ')[0])
 
 //////////
 
 for (let button of tableButtons){
   button.addEventListener('click', ()=>{
-    console.log(button)
+    console.log(button.id.split(' ')[0])
+
   })
 }
 

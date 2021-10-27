@@ -146,11 +146,42 @@ section{
 #shop{
     display: flex;
     justify-content: center;
+    align-items: flex-start;
 }
 
 table, tr, td{
     border: 3px solid black;
     padding: 10px;
+    position: relative;    
+}
+
+
+
+
+.tableButton{
+    position: relative;
+    /* z-index brings the element to the front or back by 1 or -1 */
+    z-index: 1
+}
+.grid-container {
     margin: 0 auto;
+    max-width: 500px;
+    max-height: 300px;
+    display: grid;
+    grid-row-gap: 10px;
+    grid-template-columns: auto auto auto;
+    background-color: blueviolet;
+    padding: 10px;
+    position: relative;
+}
+
+
+.tableName, .tablePrice, .input {
+    background-color: rgba(255, 255, 255, 0.6);
+    border: 1px solid black;
+    padding: 5px;
+    font-size: 30px;
+    text-align: center;
+    position: relative;
 }
 
