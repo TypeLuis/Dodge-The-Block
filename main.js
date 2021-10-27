@@ -4,7 +4,13 @@ const buttonTest = document.getElementById('button1')
 const block = document.getElementById('block1')
 const character = document.getElementById('character')
 const blocks = document.getElementsByClassName('blocks')
+const body = document.getElementById('body')
+body.style.backgroundColor = 'burlywood'
 const tablet = document.getElementById('tablet')
+tablet.style.backgroundColor = 'royalblue'
+const lController = document.getElementById('controllerLeft')
+const rController = document.getElementById('controllerRight')
+rController.style.backgroundColor = 'blueviolet'
 let hitBlock = false
 let checkDead
 character.style.position = 'relative'
@@ -45,6 +51,7 @@ function getRandomArbitrary(min, max) {
 // The starting parameters of the game. places the characters and blocks in starting position
 function startingParams(){
   for(let block of blocks){
+    clearInterval(colorSwitch)
     block.style.backgroundColor = 'brown'
     block.style.animation = ""
   }
@@ -58,15 +65,17 @@ function startGame(){
     block.style.backgroundColor = 'brown'
     block.style.animation = `block ${getRandomArbitrary(5, 10)}s infinite linear`
     colorSwitch = setInterval(() => {
-      if(hitBlock === false){
-        block.style.backgroundColor = 'green'
-        setTimeout(() => {
-          block.style.backgroundColor = 'brown'
-        }, 5000);
-      }
-      else if(hitBlock === true){
+        if(hitBlock === false){
+          block.style.backgroundColor = 'green'
+        }
+        else if(hitBlock === true){
         clearInterval(colorSwitch)
-      }
+        }
+        setTimeout(() => {
+          if(hitBlock === false){
+            block.style.backgroundColor = 'brown'
+          }
+        }, 5000)
     }, getRandomInt(3000, 18000));
   }
 }
@@ -115,15 +124,64 @@ checkCollision()
 
 for (let button of tableButtons){
   button.addEventListener('click', ()=>{
+    let color
+    // get's the first word of Id
     buttonName = button.id.split(' ')[0]
+    // first word of Price Id === First word of button Id
     price = document.getElementById(`${buttonName} Price`)
     console.log(price.innerText)
-    // Example of switch. if switch(param) === 'tablet', run code
-    switch(buttonName){
-      case 'tablet':
-        console.log(buttonName)
+
+    // if(parseInt(coin.innerText) >= parseInt(price.innerText)){
+
+      // coin.innerText = parseInt(coin.innerText) - parseInt(price.innerText)
+      // Example of switch. if switch(param) === 'tablet', run code
+      switch(buttonName){
+        case 'tablet':
+          tablet.style.backgroundColor = null
+          while(true){
+            if(tablet.style.backgroundColor === ""){
+              color = prompt(`What color would you like your ${buttonName} to be?`)
+              tablet.style.backgroundColor = color
+            }
+            else{break}
+          }
         break
-    }
+          break
+        case 'controller':
+          rController.style.backgroundColor = null
+          lController.style.backgroundColor = null
+          while(true){
+            if(rController.style.backgroundColor === ""){
+              color = prompt(`What color would you like your ${buttonName} to be?`)
+              rController.style.backgroundColor = color
+            }
+            else{break}
+          }
+          lController.style.backgroundColor = color
+          break
+        case 'background':
+          body.style.backgroundColor = null
+          while(true){
+            if(body.style.backgroundColor === ""){
+              color = prompt(`What color would you like your ${buttonName} to be?`)
+              body.style.backgroundColor = color
+            }
+            else{break}
+          }
+          break
+        case 'character':
+          character.style.backgroundColor = null
+          while(true){
+            if(character.style.backgroundColor === ""){
+              color = prompt(`What color would you like your ${buttonName} to be?`)
+              character.style.backgroundColor = color
+            }
+            else{break}
+          }
+        break
+      }
+    // }
+
   })
 }
 
@@ -137,8 +195,8 @@ tabButton.addEventListener('click', ()=>{
     priceName = tabPrice.id.split(' ')[0]
     buttonName = tabButton.id.split(' ')[0]
     coin.innerText = parseInt(coin.innerText) - parseInt(tabPrice.innerText)
-    let color = prompt(`What color would you like your ${buttonName} to be?`)
-    tablet.style.backgroundColor = color
+    // let color = prompt(`What color would you like your ${buttonName} to be?`)
+    // tablet.style.backgroundColor = color
     //  form = document.createElement('form')
     //  form.setAttribute('id', `${priceName}Form`)
     //  label = document.createElement('label')

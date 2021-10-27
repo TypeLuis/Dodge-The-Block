@@ -2,7 +2,7 @@
 body{
     margin: 0;
     padding: 0;
-    background-color: burlywood;
+    /* background-color: burlywood; */
 }
 
 section{
@@ -16,7 +16,7 @@ section{
 #tablet{
     width: 700px;
     height: 350px;
-    background-color: royalblue;
+    /* background-color: royalblue; */
     margin: 0 auto;
     position: relative;
     top: 25%;
@@ -67,7 +67,7 @@ section{
 #controllerRight{
     height: 350px;
     width: 200px;
-    background-color: blueviolet;
+    /* background-color: blueviolet; */
     border: 1px solid black;
     position: relative;
     bottom: 62.8%;
@@ -144,9 +144,20 @@ section{
 }
 
 #shop{
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
+    max-width: 2.2%;
+    background-color: rgba(199, 255, 199, 0.6);
+    border-radius: 25%;
+    position: relative;
+    left: 48%;
+    margin: 0%;
+}
+#coinText{
+    max-width: 4%;
+    background-color: rgba(199, 255, 199, 0.6);
+    border-radius: 25%;
+    position: relative;
+    left: 48%;
+    margin: 0%;
 }
 
 table, tr, td{
