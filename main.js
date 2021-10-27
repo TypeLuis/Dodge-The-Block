@@ -1,7 +1,10 @@
+const coin = document.getElementById('coin')
+console.log(parseInt(coin.innerText))
 const buttonTest = document.getElementById('button1')
 const block = document.getElementById('block1')
 const character = document.getElementById('character')
 const blocks = document.getElementsByClassName('blocks')
+let coinSwitch = false
 let checkDead
 
 //The Window.getComputedStyle() method returns an object containing the values of all CSS properties of an element, after applying active stylesheets and resolving any basic computation those values may contain.
@@ -25,14 +28,19 @@ character.style.top = '179px'
 character.style.left = '0px'
 
 
-function moveBlock(block){
-
-}
-
-
+// Starts the animation and changes blocks background color through intervals
 for(let block of blocks){
+  block.style.backgroundColor = 'brown'
   block.style.animation = `block ${getRandomArbitrary(5, 10)}s infinite linear`
+  setInterval(() => {
+    block.style.backgroundColor = 'green'
+    setTimeout(() => {
+      block.style.backgroundColor = 'brown'
+    }, 5000);
+  }, getRandomInt(30000, 180000));
 }
+
+
 
 // interval that checks if the block css style "left" is less than 0 pixels
 // once it checks, the block's animation is null and give it 50 ms to start back up
@@ -48,6 +56,13 @@ setInterval(() => {
     }
   }
 }, 50);
+
+
+
+
+
+
+
 
 
 
@@ -103,10 +118,23 @@ checkDead = setInterval(() =>{
     if(characterRect.x < blockrect.x +characterRect.width &&
       characterRect.x + characterRect.width > blockrect.x &&
       characterRect.y < blockrect.y + blockrect.height &&
-      characterRect.y + characterRect.height > blockrect.y
+      characterRect.y + characterRect.height > blockrect.y &&
+      block.style.backgroundColor === 'brown'
       ){
         clearInterval(checkDead)
         console.log('hit detected')
+      }
+    else if(characterRect.x < blockrect.x +characterRect.width &&
+      characterRect.x + characterRect.width > blockrect.x &&
+      characterRect.y < blockrect.y + blockrect.height &&
+      characterRect.y + characterRect.height > blockrect.y &&
+      block.style.backgroundColor === 'green'
+      ){  
+        coin.innerText = parseInt(coin.innerText) + 1
+        block.style.backgroundColor = 'chocolate'
+        setTimeout(() => {
+          block.style.backgroundColor = 'brown'
+        }, 500);
       }
   }
 }, 10)

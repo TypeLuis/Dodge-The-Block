@@ -1,9 +1,4 @@
-/* canvas{
-    border: 1px solid black;
-    background-color: red;
-}
-
-body tags usually have 8 margin */
+/* body tags usually have 8 margin */
 body{
     margin: 0;
     padding: 0;
@@ -41,61 +36,16 @@ section{
     width: 20px;
     height: 20px;
     background-color: yellow;
-    /* position: relative;
-    top: 179px; */
 }
 
 .blocks{
     width: 20px;
-    height: 18px;
-    background-color: brown;
+    height: 20px;
     left: 480px;
+    position: relative; 
+    top: -21px;
 }
 
-#block1{
-    position: relative;
-    top: 162px;
-}
-
-#block2{
-    position: absolute;
-    top:  142px;
-}
-
-#block3{
-    position: absolute;
-    top:  122px;
-}
-
-#block4{
-    position: absolute;
-    top:  102px;
-}
-
-#block5{
-    position: absolute;
-    top:  82px;
-}
-
-#block6{
-    position: absolute;
-    top:  62px;
-}
-
-#block7{
-    position: absolute;
-    top:  42px;
-}
-
-#block8{
-    position: absolute;
-    top:  22px;
-}
-
-#block9{
-    position: absolute;
-    top:  2px;
-}
 
 @keyframes block{
     0%{left:480;}
