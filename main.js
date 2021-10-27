@@ -1,11 +1,14 @@
 const coin = document.getElementById('coin')
-console.log(parseInt(coin.innerText))
+const reset = document.getElementById('reset')
 const buttonTest = document.getElementById('button1')
 const block = document.getElementById('block1')
 const character = document.getElementById('character')
 const blocks = document.getElementsByClassName('blocks')
-let coinSwitch = false
+let hitBlock = false
 let checkDead
+character.style.position = 'relative'
+character.style.top = '179px'
+character.style.left = '0px'
 
 //The Window.getComputedStyle() method returns an object containing the values of all CSS properties of an element, after applying active stylesheets and resolving any basic computation those values may contain.
 // characterStyle = window.getComputedStyle(character)
@@ -23,23 +26,71 @@ function getRandomArbitrary(min, max) {
   return Math.random() * (max - min) + min;
 }
 
-character.style.position = 'relative'
-character.style.top = '179px'
-character.style.left = '0px'
 
-
-// Starts the animation and changes blocks background color through intervals
-for(let block of blocks){
-  block.style.backgroundColor = 'brown'
-  block.style.animation = `block ${getRandomArbitrary(5, 10)}s infinite linear`
-  setInterval(() => {
-    block.style.backgroundColor = 'green'
-    setTimeout(() => {
-      block.style.backgroundColor = 'brown'
-    }, 5000);
-  }, getRandomInt(30000, 180000));
+function startingParams(){
+  for(let block of blocks){
+    block.style.animation = ""
+  }
+  character.style.top = '179px'
+  character.style.left = '0px'
 }
 
+// Starts the animation and changes blocks background color through intervals
+function startGame(){
+  for(let block of blocks){
+    block.style.backgroundColor = 'brown'
+    block.style.animation = `block ${getRandomArbitrary(5, 10)}s infinite linear`
+    colorSwitch = setInterval(() => {
+      if(hitBlock === false){
+        block.style.backgroundColor = 'green'
+        setTimeout(() => {
+          block.style.backgroundColor = 'brown'
+        }, 5000);
+      }
+      else if(hitBlock === true){
+        block.style.backgroundColor = 'brown'
+        clearInterval(colorSwitch)
+      }
+    }, getRandomInt(3000, 18000));
+  }
+}
+startGame()
+
+// how to check collision detection between rectangles? https://www.youtube.com/watch?v=r0sy-Cr6WHY
+// getBoundingClientRect() returns an object providing the size of an element and its position relative to the viewport : https://developer.mozilla.org/en-US/docs/Web/API/Element/getBoundingClientRect
+function checkCollision(){
+  checkHit = setInterval(() =>{
+    for(let block of blocks){
+      let blockrect = block.getBoundingClientRect()
+      let characterRect = character.getBoundingClientRect()
+    
+      if(characterRect.x < blockrect.x +characterRect.width &&
+        characterRect.x + characterRect.width > blockrect.x &&
+        characterRect.y < blockrect.y + blockrect.height &&
+        characterRect.y + characterRect.height > blockrect.y &&
+        block.style.backgroundColor === 'brown'
+        ){
+          startingParams()
+          hitBlock = true
+          clearInterval(checkHit)
+          console.log('hit detected')
+        }
+      else if(characterRect.x < blockrect.x +characterRect.width &&
+        characterRect.x + characterRect.width > blockrect.x &&
+        characterRect.y < blockrect.y + blockrect.height &&
+        characterRect.y + characterRect.height > blockrect.y &&
+        block.style.backgroundColor === 'green'
+        ){  
+          coin.innerText = parseInt(coin.innerText) + 1
+          block.style.backgroundColor = 'chocolate'
+          setTimeout(() => {
+            block.style.backgroundColor = 'brown'
+          }, 750);
+        }
+    }
+  }, 10)
+}
+checkCollision()
 
 
 // interval that checks if the block css style "left" is less than 0 pixels
@@ -47,12 +98,11 @@ for(let block of blocks){
 setInterval(() => {
   for(let block of blocks){
     blockStyle = window.getComputedStyle(block)
-    if(parseInt(blockStyle.getPropertyValue('left')) < 0){
+    if(parseInt(blockStyle.getPropertyValue('left')) < 0 && hitBlock === false){
       block.style.animation = ""
       setTimeout(() => {
         block.style.animation = `block ${getRandomInt(5, 10)}s infinite linear`
       }, 50);
-
     }
   }
 }, 50);
@@ -61,7 +111,12 @@ setInterval(() => {
 
 
 
-
+reset.addEventListener('click', ()=>{
+  hitBlock = false
+  startingParams()
+  setTimeout(()=>{startGame()}, 500)
+  checkCollision()
+})
 
 
 
@@ -74,67 +129,39 @@ document.addEventListener('keydown', function(e) {
   // inside of switch, we place a parameter, this case is the document
   // (e)"e can be anything" declares the document that we selected
   // keyCode are different codes that defines the characters on a keyboard
-  switch (e.keyCode) {
-    // case are different cases that can happen in a switch like a conditional. this one is saying if keycode 38('up arrow') is pressed, run this following command
-      case 37:
-        if(parseInt(character.style.left) > 0){
-          let moveLeft = parseInt(character.style.left) - 20 
-          character.style.left = `${moveLeft}px`  
-        }
-        break;
-      case 38:
-        if(parseInt(character.style.top) > -1){
-          let moveUp = parseInt(character.style.top) - 20 
-          character.style.top = `${moveUp}px`
-        }
-        break;
-      case 39:
-        if(parseInt(character.style.left) < 440){
-          let moveRight = parseInt(character.style.left) + 20 
-          character.style.left = `${moveRight}px`
-        }
+  if(hitBlock === false){
+    switch (e.keyCode) {
+      // case are different cases that can happen in a switch like a conditional. this one is saying if keycode 38('up arrow') is pressed, run this following command
+        case 37:
+          if(parseInt(character.style.left) > 0){
+            let moveLeft = parseInt(character.style.left) - 20 
+            character.style.left = `${moveLeft}px`  
+          }
           break;
-      case 40:
-        if(parseInt(character.style.top) < 179){
-          let moveDown = parseInt(character.style.top) + 20
-          character.style.top = `${moveDown}px`
-        }
+        case 38:
+          if(parseInt(character.style.top) > -1){
+            let moveUp = parseInt(character.style.top) - 20 
+            character.style.top = `${moveUp}px`
+          }
           break;
+        case 39:
+          if(parseInt(character.style.left) < 440){
+            let moveRight = parseInt(character.style.left) + 20 
+            character.style.left = `${moveRight}px`
+          }
+            break;
+        case 40:
+          if(parseInt(character.style.top) < 179){
+            let moveDown = parseInt(character.style.top) + 20
+            character.style.top = `${moveDown}px`
+          }
+            break;
+    }
   }
-});
+});  
 
 
 
 
-// how to check collision detection between rectangles? https://www.youtube.com/watch?v=r0sy-Cr6WHY
 
-// getBoundingClientRect() returns an object providing the size of an element and its position relative to the viewport : https://developer.mozilla.org/en-US/docs/Web/API/Element/getBoundingClientRect
 
-checkDead = setInterval(() =>{
-  for(let block of blocks){
-    let blockrect = block.getBoundingClientRect()
-    let characterRect = character.getBoundingClientRect()
-  
-    if(characterRect.x < blockrect.x +characterRect.width &&
-      characterRect.x + characterRect.width > blockrect.x &&
-      characterRect.y < blockrect.y + blockrect.height &&
-      characterRect.y + characterRect.height > blockrect.y &&
-      block.style.backgroundColor === 'brown'
-      ){
-        clearInterval(checkDead)
-        console.log('hit detected')
-      }
-    else if(characterRect.x < blockrect.x +characterRect.width &&
-      characterRect.x + characterRect.width > blockrect.x &&
-      characterRect.y < blockrect.y + blockrect.height &&
-      characterRect.y + characterRect.height > blockrect.y &&
-      block.style.backgroundColor === 'green'
-      ){  
-        coin.innerText = parseInt(coin.innerText) + 1
-        block.style.backgroundColor = 'chocolate'
-        setTimeout(() => {
-          block.style.backgroundColor = 'brown'
-        }, 500);
-      }
-  }
-}, 10)
