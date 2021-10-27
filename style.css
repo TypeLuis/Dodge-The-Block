@@ -17,9 +17,10 @@ section{
     width: 700px;
     height: 350px;
     background-color: royalblue;
+    margin: 0 auto;
     position: relative;
     top: 25%;
-    left: 30%;
+    /* left: 30%; */
 }
 
 
@@ -59,7 +60,7 @@ section{
     border: 1px solid black;
     position: relative;
     top: -18.8%;
-    left: 17%;
+    left: 13.2%;
     border-radius: 50% 0 0 50%;
 }
 
@@ -70,7 +71,7 @@ section{
     border: 1px solid black;
     position: relative;
     bottom: 62.8%;
-    left: 76.5%;
+    left: 73.3%;
     border-radius: 0 50% 50% 0;
 }
 

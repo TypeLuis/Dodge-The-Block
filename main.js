@@ -4,11 +4,25 @@ const buttonTest = document.getElementById('button1')
 const block = document.getElementById('block1')
 const character = document.getElementById('character')
 const blocks = document.getElementsByClassName('blocks')
+const tablet = document.getElementById('tablet')
 let hitBlock = false
 let checkDead
 character.style.position = 'relative'
 character.style.top = '179px'
 character.style.left = '0px'
+const tabPrice = document.getElementById('tablet Price')
+const tabButton = document.getElementById('tablet Button')
+const conPrice = document.getElementById('controller Price')
+const conButton = document.getElementById('controller Button')
+const backPrice = document.getElementById('')
+const backButton = document.getElementById('')
+const charPrice = document.getElementById('')
+const charButton = document.getElementById('')
+const tableButtons = document.getElementsByClassName('tableButton')
+
+
+
+
 
 //The Window.getComputedStyle() method returns an object containing the values of all CSS properties of an element, after applying active stylesheets and resolving any basic computation those values may contain.
 // characterStyle = window.getComputedStyle(character)
@@ -30,6 +44,7 @@ function getRandomArbitrary(min, max) {
 // The starting parameters of the game. places the characters and blocks in starting position
 function startingParams(){
   for(let block of blocks){
+    block.style.backgroundColor = 'brown'
     block.style.animation = ""
   }
   character.style.top = '179px'
@@ -49,7 +64,6 @@ function startGame(){
         }, 5000);
       }
       else if(hitBlock === true){
-        block.style.backgroundColor = 'brown'
         clearInterval(colorSwitch)
       }
     }, getRandomInt(3000, 18000));
@@ -92,6 +106,52 @@ function checkCollision(){
   }, 10)
 }
 checkCollision()
+
+console.log(tabPrice.id.split(' ')[0])
+console.log(tabButton.id.split(' ')[0])
+
+//////////
+
+for (let button of tableButtons){
+  button.addEventListener('click', ()=>{
+    console.log(button)
+  })
+}
+
+
+
+
+// preparing before doing forLoop
+tabButton.addEventListener('click', ()=>{
+  // console.log(tabButton)
+  if(parseInt(coin.innerText) >= parseInt(tabPrice.innerText)){
+    priceName = tabPrice.id.split(' ')[0]
+    buttonName = tabButton.id.split(' ')[0]
+    coin.innerText = parseInt(coin.innerText) - parseInt(tabPrice.innerText)
+    let color = prompt(`What color would you like your ${buttonName} to be?`)
+    tablet.style.backgroundColor = color
+    //  form = document.createElement('form')
+    //  form.setAttribute('id', `${priceName}Form`)
+    //  label = document.createElement('label')
+    //  input1 = document.createElement('input')
+    //  input1.setAttribute()
+    //  input2 = document.createElement('input')
+  }
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 // interval that checks if the block css style "left" is less than 0 pixels
