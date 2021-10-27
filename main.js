@@ -27,6 +27,7 @@ function getRandomArbitrary(min, max) {
 }
 
 
+// The starting parameters of the game. places the characters and blocks in starting position
 function startingParams(){
   for(let block of blocks){
     block.style.animation = ""
@@ -95,6 +96,7 @@ checkCollision()
 
 // interval that checks if the block css style "left" is less than 0 pixels
 // once it checks, the block's animation is null and give it 50 ms to start back up
+// The reason for this is to have different speeds through each itteration
 setInterval(() => {
   for(let block of blocks){
     blockStyle = window.getComputedStyle(block)
@@ -109,13 +111,15 @@ setInterval(() => {
 
 
 
-
-
-reset.addEventListener('click', ()=>{
+function startOver(){
   hitBlock = false
   startingParams()
   setTimeout(()=>{startGame()}, 500)
   checkCollision()
+}
+
+reset.addEventListener('click', ()=>{
+  startOver()
 })
 
 
@@ -129,6 +133,15 @@ document.addEventListener('keydown', function(e) {
   // inside of switch, we place a parameter, this case is the document
   // (e)"e can be anything" declares the document that we selected
   // keyCode are different codes that defines the characters on a keyboard
+  switch(e.keyCode){
+    case 27:
+      startingParams()
+      hitBlock = true
+      break;
+    case 32:
+      startOver()
+      break;
+  }
   if(hitBlock === false){
     switch (e.keyCode) {
       // case are different cases that can happen in a switch like a conditional. this one is saying if keycode 38('up arrow') is pressed, run this following command

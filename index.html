@@ -13,35 +13,64 @@
     <div>
         <h2 id="coin text">Coins: <span id="coin">0</span></h2>
     </div>
+    <h2 id="shop">Shop</h2>
+    <table>
+        <tr>
+            <td>Prize</td>
+            <td>Cost</td>
+            <td>Purchase</td>
+        </tr>
+        <tr>
+            <td>Change Tablet Color</td>
+            <td id="tabPrice">10</td>
+            <td><button id="tabButton" class="tableButton">Buy</button></td>
+        </tr>
+        <tr>
+            <td>Change Controller Color</td>
+            <td id="conPrice">15</td>
+            <td><button id="conButton" class="tableButton">Buy</button></td>
+        </tr>
+        <tr>
+            <td>Change Background Color</td>
+            <td id="backPrice">20</td>
+            <td><button id="backButton" class="tableButton">Buy</button></td>
+        </tr>
+        <tr>
+            <td>Change Character Color</td>
+            <td id="charPrice">25</td>
+            <td><button id="charButton" class="tableButton">Buy</button></td>
+        </tr>
+    </table>
     <section>
         <div id="tablet">
             <div id="game">
                 <div id="character"></div>
-                <div id="block1" class="blocks"></div>
-                <div id="block2" class="blocks"></div>
-                <div id="block3" class="blocks"></div>
-                <div id="block4" class="blocks"></div>
-                <div id="block5" class="blocks"></div>
-                <div id="block6" class="blocks"></div>
-                <div id="block7" class="blocks"></div>
-                <div id="block8" class="blocks"></div>
-                <div id="block9" class="blocks"></div>
-                <div id="block10" class="blocks"></div>
+                <div class="blocks"></div>
+                <div class="blocks"></div>
+                <div class="blocks"></div>
+                <div class="blocks"></div>
+                <div class="blocks"></div>
+                <div class="blocks"></div>
+                <div class="blocks"></div>
+                <div class="blocks"></div>
+                <div class="blocks"></div>
+                <div class="blocks"></div>
             </div>
         </div>
         <div id="controllerLeft">
             <div id="leftContainer">
-                <button class="leftUpButtons" id="button1">⏐</button>
-                <button class="leftSideButtons" id="button2">⎯</button>
-                <button class="leftUpButtons" id="button3">⏐</button>
-                <button class="leftSideButtons" id="button4">⎯</button>
+                <button class="leftButtons" id="button1">⏐</button>
+                <button class="leftButtons" id="button2">⎯</button>
+                <button class="leftButtons" id="button3">⏐</button>
+                <button class="leftButtons" id="button4">⎯</button>
             </div>
         
         </div>
         <div id="controllerRight">
-            <button id="reset">reset</button>
-            <button class="rightButton" id="buttonA">a</button>
-            <button class="rightButton" id="buttonB">b</button>
+            <button class="rightButton" id="reset">reset</button>
+            <button class="rightButton" id="normal">normal</button>
+            <button class="rightButton" id="easy">easy</button>
+            <button class="rightButton" id="hard">hard</button>
         </div>
     </section>
 </body>
