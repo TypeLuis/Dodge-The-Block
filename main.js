@@ -19,6 +19,7 @@ const backButton = document.getElementById('')
 const charPrice = document.getElementById('')
 const charButton = document.getElementById('')
 const tableButtons = document.getElementsByClassName('tableButton')
+const prices = document.getElementsByClassName('tablePrice')
 
 
 
@@ -114,8 +115,15 @@ checkCollision()
 
 for (let button of tableButtons){
   button.addEventListener('click', ()=>{
-    console.log(button.id.split(' ')[0])
-
+    buttonName = button.id.split(' ')[0]
+    price = document.getElementById(`${buttonName} Price`)
+    console.log(price.innerText)
+    // Example of switch. if switch(param) === 'tablet', run code
+    switch(buttonName){
+      case 'tablet':
+        console.log(buttonName)
+        break
+    }
   })
 }
 
