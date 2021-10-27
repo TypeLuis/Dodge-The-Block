@@ -16,24 +16,12 @@ let checkDead
 character.style.position = 'relative'
 character.style.top = '179px'
 character.style.left = '0px'
-const tabPrice = document.getElementById('tablet Price')
-const tabButton = document.getElementById('tablet Button')
-const conPrice = document.getElementById('controller Price')
-const conButton = document.getElementById('controller Button')
-const backPrice = document.getElementById('')
-const backButton = document.getElementById('')
-const charPrice = document.getElementById('')
-const charButton = document.getElementById('')
 const tableButtons = document.getElementsByClassName('tableButton')
 const prices = document.getElementsByClassName('tablePrice')
 
 
-
-
-
 //The Window.getComputedStyle() method returns an object containing the values of all CSS properties of an element, after applying active stylesheets and resolving any basic computation those values may contain.
 // characterStyle = window.getComputedStyle(character)
-// console.log(characterStyle)
 // console.log(characterStyle.getPropertyValue('background-color'))
 
 
@@ -42,6 +30,7 @@ function getRandomInt(min, max) {
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min) + min); //The maximum is exclusive and the minimum is inclusive
 }
+
 
 function getRandomArbitrary(min, max) {
   return Math.random() * (max - min) + min;
@@ -58,11 +47,11 @@ function startingParams(){
   character.style.top = '179px'
   character.style.left = '0px'
 }
+startingParams()
 
 // Starts the animation and changes blocks background color through intervals
 function startGame(){
   for(let block of blocks){
-    block.style.backgroundColor = 'brown'
     block.style.animation = `block ${getRandomArbitrary(5, 10)}s infinite linear`
     colorSwitch = setInterval(() => {
         if(hitBlock === false){
@@ -80,6 +69,7 @@ function startGame(){
   }
 }
 startGame()
+
 
 // how to check collision detection between rectangles? https://www.youtube.com/watch?v=r0sy-Cr6WHY
 // getBoundingClientRect() returns an object providing the size of an element and its position relative to the viewport : https://developer.mozilla.org/en-US/docs/Web/API/Element/getBoundingClientRect
@@ -117,10 +107,6 @@ function checkCollision(){
 }
 checkCollision()
 
-// console.log(tabPrice.id.split(' ')[0])
-// console.log(tabButton.id.split(' ')[0])
-
-//////////
 
 for (let button of tableButtons){
   button.addEventListener('click', ()=>{
@@ -146,18 +132,16 @@ for (let button of tableButtons){
             else{break}
           }
         break
-          break
         case 'controller':
           rController.style.backgroundColor = null
-          lController.style.backgroundColor = null
           while(true){
             if(rController.style.backgroundColor === ""){
               color = prompt(`What color would you like your ${buttonName} to be?`)
               rController.style.backgroundColor = color
+              lController.style.backgroundColor = color
             }
             else{break}
           }
-          lController.style.backgroundColor = color
           break
         case 'background':
           body.style.backgroundColor = null
@@ -181,62 +165,31 @@ for (let button of tableButtons){
         break
       }
     // }
-
   })
 }
-
-
-
-
-// preparing before doing forLoop
-tabButton.addEventListener('click', ()=>{
-  // console.log(tabButton)
-  if(parseInt(coin.innerText) >= parseInt(tabPrice.innerText)){
-    priceName = tabPrice.id.split(' ')[0]
-    buttonName = tabButton.id.split(' ')[0]
-    coin.innerText = parseInt(coin.innerText) - parseInt(tabPrice.innerText)
-    // let color = prompt(`What color would you like your ${buttonName} to be?`)
-    // tablet.style.backgroundColor = color
-    //  form = document.createElement('form')
-    //  form.setAttribute('id', `${priceName}Form`)
-    //  label = document.createElement('label')
-    //  input1 = document.createElement('input')
-    //  input1.setAttribute()
-    //  input2 = document.createElement('input')
-  }
-})
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 // interval that checks if the block css style "left" is less than 0 pixels
 // once it checks, the block's animation is null and give it 50 ms to start back up
 // The reason for this is to have different speeds through each itteration
-setInterval(() => {
-  for(let block of blocks){
-    blockStyle = window.getComputedStyle(block)
-    if(parseInt(blockStyle.getPropertyValue('left')) < 0 && hitBlock === false){
-      block.style.animation = ""
-      setTimeout(() => {
-        block.style.animation = `block ${getRandomInt(5, 10)}s infinite linear`
-      }, 50);
+function animationChange(){
+  change = setInterval(() => {
+    if(hitBlock === false){
+      for(let block of blocks){
+        blockStyle = window.getComputedStyle(block)
+        if(parseInt(blockStyle.getPropertyValue('left')) < 0){
+          block.style.animation = ""
+          setTimeout(() => {
+            block.style.animation = `block ${getRandomInt(5, 10)}s infinite linear`
+          }, 50);
+        }
+      }
     }
-  }
-}, 50);
+    else{clearInterval(change)}
+  }, 50);
+}
 
-
+animationChange
 
 function startOver(){
   hitBlock = false
@@ -265,7 +218,7 @@ document.addEventListener('keydown', function(e) {
       startingParams()
       hitBlock = true
       break;
-    case 32:
+    case 49:
       startOver()
       break;
   }
