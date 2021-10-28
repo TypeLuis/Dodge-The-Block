@@ -1,8 +1,7 @@
 const coin = document.getElementById('coin')
 const reset = document.getElementById('reset')
-const buttonTest = document.getElementById('button1')
-const block = document.getElementById('block1')
 const character = document.getElementById('character')
+character.style.position = 'relative'
 const blocks = document.getElementsByClassName('blocks')
 const body = document.getElementById('body')
 body.style.backgroundColor = 'burlywood'
@@ -13,16 +12,11 @@ const rController = document.getElementById('controllerRight')
 rController.style.backgroundColor = 'blueviolet'
 let hitBlock = false
 let checkDead
-character.style.position = 'relative'
-character.style.top = '179px'
-character.style.left = '0px'
+let klk = false
+let invervalArr = []
 const tableButtons = document.getElementsByClassName('tableButton')
 const prices = document.getElementsByClassName('tablePrice')
-
-
-//The Window.getComputedStyle() method returns an object containing the values of all CSS properties of an element, after applying active stylesheets and resolving any basic computation those values may contain.
-// characterStyle = window.getComputedStyle(character)
-// console.log(characterStyle.getPropertyValue('background-color'))
+const rButtons = document.getElementsByClassName('rightButton')
 
 
 function getRandomInt(min, max) {
@@ -40,40 +34,71 @@ function getRandomArbitrary(min, max) {
 // The starting parameters of the game. places the characters and blocks in starting position
 function startingParams(){
   for(let block of blocks){
-    clearInterval(colorSwitch)
     block.style.backgroundColor = 'brown'
     block.style.animation = ""
   }
   character.style.top = '179px'
   character.style.left = '0px'
+  hitBlock = true
 }
 startingParams()
 
+
 // Starts the animation and changes blocks background color through intervals
-function startGame(){
+function startGame(ranNum1, ranNum2){
   for(let block of blocks){
-    block.style.animation = `block ${getRandomArbitrary(5, 10)}s infinite linear`
-    colorSwitch = setInterval(() => {
-        if(hitBlock === false){
-          block.style.backgroundColor = 'green'
-        }
-        else if(hitBlock === true){
-        clearInterval(colorSwitch)
-        }
-        setTimeout(() => {
-          if(hitBlock === false){
-            block.style.backgroundColor = 'brown'
-          }
-        }, 5000)
-    }, getRandomInt(3000, 18000));
+    block.style.animation = `block ${getRandomArbitrary(ranNum1, ranNum2)}s infinite linear`
+    if(invervalArr.length === 10){
+      for(i =0; i < invervalArr.length; i++){ 
+        console.log(invervalArr) 
+        clearInterval(invervalArr[i])
+        invervalArr.pop(i)
+        console.log('colorSwitch ' +colorSwitch)
+      }
+      // console.log(invervalArr)
+    }
   }
 }
-startGame()
+startGame(5, 10)
 
 
-// how to check collision detection between rectangles? https://www.youtube.com/watch?v=r0sy-Cr6WHY
-// getBoundingClientRect() returns an object providing the size of an element and its position relative to the viewport : https://developer.mozilla.org/en-US/docs/Web/API/Element/getBoundingClientRect
+
+hitBlock = false
+
+
+// changes blocks background color through intervals
+// puts the intervals in an array to avoid glitches with the interval when reseting the game
+function switchColor(ranNum1, ranNum2){
+  console.log(invervalArr)
+  
+
+  for(let block of blocks){
+    if(invervalArr.length < 10){
+      colorSwitch = setInterval(() => {  
+        // console.log(colorSwitch)  
+        console.log(invervalArr)
+        if(hitBlock === false){
+          block.style.backgroundColor = 'green'
+          setTimeout(() => {
+            block.style.backgroundColor = 'brown'
+          }, 5000)
+        }
+      }, getRandomInt(ranNum1, ranNum2));
+      invervalArr.push(colorSwitch)
+      // console.log('Yuurrrrrr')
+      console.log(invervalArr)
+    }
+
+ 
+  }
+}
+switchColor(10000, 50000)
+
+
+
 function checkCollision(){
+  // how to check collision detection between rectangles? https://www.youtube.com/watch?v=r0sy-Cr6WHY
+  // getBoundingClientRect() returns an object providing the size of an element and its position relative to the viewport : https://developer.mozilla.org/en-US/docs/Web/API/Element/getBoundingClientRect
   checkHit = setInterval(() =>{
     for(let block of blocks){
       let blockrect = block.getBoundingClientRect()
@@ -106,6 +131,29 @@ function checkCollision(){
   }, 10)
 }
 checkCollision()
+
+
+function animationChange(ranNum1, ranNum2){
+  // interval that checks if the block css style "left" is less than 0 pixels
+  // once it checks, the block's animation is null and give it 50 ms to start back up
+  // The reason for this is to have different speeds through each itteration
+  // The Window.getComputedStyle() method returns an object containing the values of all CSS properties of an element, after applying active stylesheets and resolving any basic computation those values may contain.
+  change = setInterval(() => {
+    if(hitBlock === false){
+      for(let block of blocks){
+        blockStyle = window.getComputedStyle(block)
+        if(parseInt(blockStyle.getPropertyValue('left')) < 0){
+          block.style.animation = ""
+          setTimeout(() => {
+            block.style.animation = `block ${getRandomInt(ranNum1, ranNum2)}s infinite linear`
+          }, 50);
+        }
+      }
+    }
+    else{clearInterval(change)}
+  }, 50);
+}
+animationChange(5, 10)
 
 
 for (let button of tableButtons){
@@ -169,40 +217,34 @@ for (let button of tableButtons){
 }
 
 
-// interval that checks if the block css style "left" is less than 0 pixels
-// once it checks, the block's animation is null and give it 50 ms to start back up
-// The reason for this is to have different speeds through each itteration
-function animationChange(){
-  change = setInterval(() => {
-    if(hitBlock === false){
-      for(let block of blocks){
-        blockStyle = window.getComputedStyle(block)
-        if(parseInt(blockStyle.getPropertyValue('left')) < 0){
-          block.style.animation = ""
-          setTimeout(() => {
-            block.style.animation = `block ${getRandomInt(5, 10)}s infinite linear`
-          }, 50);
-        }
-      }
-    }
-    else{clearInterval(change)}
-  }, 50);
-}
-
-animationChange
-
-function startOver(){
-  hitBlock = false
+function startOver(ranNum1, ranNum2, ranNum3, ranNum4){
   startingParams()
-  setTimeout(()=>{startGame()}, 500)
+  setTimeout(()=>{startGame(ranNum1, ranNum2)}, 50)
+  switchColor(ranNum3, ranNum4)
+  setTimeout(()=>{hitBlock = false, 2000})
   checkCollision()
+  animationChange(ranNum1, ranNum2)
 }
 
-reset.addEventListener('click', ()=>{
-  startOver()
-})
-
-
+for(let button of rButtons){
+  button.addEventListener('click', ()=>{
+    bttnName = button.id
+    switch(bttnName){
+      case 'easy':
+        startOver(8, 13, 15000, 60000)
+        break
+      case 'normal':
+        startOver(5, 10, 10000, 50000)
+        break
+      case 'hard':
+        startOver(2, 6, 7000, 40000)
+        break
+      case 'reset':
+        startOver(5, 10, 10000, 50000)
+        break
+    }
+  })
+}
 
 
 // Sources to help improve knowledege of switch
@@ -219,8 +261,14 @@ document.addEventListener('keydown', function(e) {
       hitBlock = true
       break;
     case 49:
-      startOver()
+      startOver(5, 10, 10000, 50000)
       break;
+    case 50:
+      startOver(8, 13, 15000, 60000)
+      break
+    case 51:
+      startOver(2, 6, 7000, 40000)
+      break
   }
   if(hitBlock === false){
     switch (e.keyCode) {

@@ -67,17 +67,11 @@ section{
 #controllerRight{
     height: 350px;
     width: 200px;
-    /* background-color: blueviolet; */
     border: 1px solid black;
     position: relative;
     bottom: 62.8%;
     left: 73.3%;
     border-radius: 0 50% 50% 0;
-}
-
-
-.leftButtons{
-
 }
 
 #button1{
