@@ -37,6 +37,7 @@ function startingParams(){
     block.style.backgroundColor = 'brown'
     block.style.animation = ""
   }
+  console.log('klk1')
   character.style.top = '179px'
   character.style.left = '0px'
   hitBlock = true
@@ -45,15 +46,17 @@ startingParams()
 
 
 // Starts the animation and changes blocks background color through intervals
-function startGame(ranNum1, ranNum2){
+async function startGame(ranNum1, ranNum2){
+  console.log('klk2')
   for(let block of blocks){
-    block.style.animation = `block ${getRandomArbitrary(ranNum1, ranNum2)}s infinite linear`
+    setTimeout(() => {block.style.animation = `block ${getRandomArbitrary(ranNum1, ranNum2)}s infinite linear`}, 50); 
     if(invervalArr.length === 10){
       for(i =0; i < invervalArr.length; i++){ 
-        console.log(invervalArr) 
-        clearInterval(invervalArr[i])
-        invervalArr.pop(i)
-        console.log('colorSwitch ' +colorSwitch)
+        console.log(invervalArr[i]) 
+        await clearInterval(invervalArr[i])
+        console.log('colorSwitch Before Pop: ' ,colorSwitch)
+        await invervalArr.pop(i)
+        console.log('colorSwitch After Pop: ' ,colorSwitch)
       }
       // console.log(invervalArr)
     }
@@ -68,13 +71,11 @@ hitBlock = false
 
 // changes blocks background color through intervals
 // puts the intervals in an array to avoid glitches with the interval when reseting the game
-function switchColor(ranNum1, ranNum2){
-  console.log(invervalArr)
-  
-
+async function switchColor(ranNum1, ranNum2){
+  console.log('klk3')
   for(let block of blocks){
     if(invervalArr.length < 10){
-      colorSwitch = setInterval(() => {  
+      colorSwitch = await setInterval(() => {  
         // console.log(colorSwitch)  
         console.log(invervalArr)
         if(hitBlock === false){
@@ -84,9 +85,8 @@ function switchColor(ranNum1, ranNum2){
           }, 5000)
         }
       }, getRandomInt(ranNum1, ranNum2));
-      invervalArr.push(colorSwitch)
-      // console.log('Yuurrrrrr')
-      console.log(invervalArr)
+      await invervalArr.push(colorSwitch)
+      console.log('PUSHING ARRAY', invervalArr, colorSwitch)
     }
 
  
@@ -97,6 +97,7 @@ switchColor(10000, 50000)
 
 
 function checkCollision(){
+  console.log('klk4')
   // how to check collision detection between rectangles? https://www.youtube.com/watch?v=r0sy-Cr6WHY
   // getBoundingClientRect() returns an object providing the size of an element and its position relative to the viewport : https://developer.mozilla.org/en-US/docs/Web/API/Element/getBoundingClientRect
   checkHit = setInterval(() =>{
@@ -134,6 +135,7 @@ checkCollision()
 
 
 function animationChange(ranNum1, ranNum2){
+  console.log('klk5')
   // interval that checks if the block css style "left" is less than 0 pixels
   // once it checks, the block's animation is null and give it 50 ms to start back up
   // The reason for this is to have different speeds through each itteration
@@ -217,13 +219,13 @@ for (let button of tableButtons){
 }
 
 
-function startOver(ranNum1, ranNum2, ranNum3, ranNum4){
-  startingParams()
-  setTimeout(()=>{startGame(ranNum1, ranNum2)}, 50)
-  switchColor(ranNum3, ranNum4)
-  setTimeout(()=>{hitBlock = false, 2000})
-  checkCollision()
-  animationChange(ranNum1, ranNum2)
+async function startOver(ranNum1, ranNum2, ranNum3, ranNum4){
+  await startingParams()
+  await startGame(ranNum1, ranNum2)
+  hitBlock = false
+  await switchColor(ranNum3, ranNum4)
+  await checkCollision()
+  await animationChange(ranNum1, ranNum2)
 }
 
 for(let button of rButtons){
