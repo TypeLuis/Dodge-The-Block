@@ -167,9 +167,9 @@ for (let button of tableButtons){
     price = document.getElementById(`${buttonName} Price`)
     console.log(price.innerText)
 
-    // if(parseInt(coin.innerText) >= parseInt(price.innerText)){
+    if(parseInt(coin.innerText) >= parseInt(price.innerText)){
 
-      // coin.innerText = parseInt(coin.innerText) - parseInt(price.innerText)
+      coin.innerText = parseInt(coin.innerText) - parseInt(price.innerText)
       // Example of switch. if switch(param) === 'tablet', run code
       switch(buttonName){
         case 'tablet':
@@ -214,7 +214,7 @@ for (let button of tableButtons){
           }
         break
       }
-    // }
+    }
   })
 }
 
