@@ -13,7 +13,13 @@ rController.style.backgroundColor = 'blueviolet'
 let hitBlock = false
 const tableButtons = document.getElementsByClassName('tableButton')
 const prices = document.getElementsByClassName('tablePrice')
+
 const rButtons = document.getElementsByClassName('rightButton')
+const lButtons = document.getElementsByClassName('leftButtons')
+
+
+const modal = document.getElementById("myModal");
+const modalClose = document.getElementsByClassName("close")[0];
 
 
 window.addEventListener("keydown", function(e) {
@@ -79,7 +85,8 @@ function switchColor(ranNum1, ranNum2){
 
   }
 }
-switchColor(10000, 50000)
+// switchColor(10000, 50000)
+switchColor(ranNum2= 50000, ranNum1 = 10000)
 
 
 
@@ -103,6 +110,16 @@ function checkCollision(){
           startingParams()
           hitBlock = true
           clearInterval(checkHit)
+          modal.style.display = 'block'
+          modalClose.addEventListener('click', () => {
+            modal.style.display = 'none'
+          })
+
+          window.addEventListener('click', (e) => {
+            if (e.target == modal) {
+              modal.style.display = "none";
+            }
+          })
           console.log('hit detected')
         }
       else if(checking('green')){  
@@ -233,6 +250,40 @@ for(let button of rButtons){
         break
       case 'reset':
         startOver(5, 10, 10000, 50000)
+        break
+    }
+  })
+}
+
+for(let button of lButtons){
+  button.addEventListener('click', () => {
+    switch(button.id){
+      case 'button1':
+        if(parseInt(character.style.top) > -1){
+          let moveUp = parseInt(character.style.top) - 20 
+          character.style.top = `${moveUp}px`
+        }
+        break
+
+      case 'button2':
+        if(parseInt(character.style.left) > 0){
+          let moveLeft = parseInt(character.style.left) - 20 
+          character.style.left = `${moveLeft}px`  
+        }
+        break
+
+      case 'button3':
+        if(parseInt(character.style.top) < 179){
+          let moveDown = parseInt(character.style.top) + 20
+          character.style.top = `${moveDown}px`
+        }
+        break
+
+      case 'button4':
+        if(parseInt(character.style.left) < 440){
+          let moveRight = parseInt(character.style.left) + 20 
+          character.style.left = `${moveRight}px`
+        }
         break
     }
   })
