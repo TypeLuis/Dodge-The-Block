@@ -11,13 +11,16 @@ const lController = document.getElementById('controllerLeft')
 const rController = document.getElementById('controllerRight')
 rController.style.backgroundColor = 'blueviolet'
 let hitBlock = false
-let checkDead
-let klk = false
-let invervalArr = []
 const tableButtons = document.getElementsByClassName('tableButton')
 const prices = document.getElementsByClassName('tablePrice')
 const rButtons = document.getElementsByClassName('rightButton')
 
+
+window.addEventListener("keydown", function(e) {
+  if(["Space","ArrowUp","ArrowDown","ArrowLeft","ArrowRight"].indexOf(e.code) > -1) {
+      e.preventDefault();
+  }
+}, false);
 
 
 function getRandomInt(min, max) {
@@ -46,16 +49,10 @@ startingParams()
 
 
 // Starts the animation and changes blocks background color through intervals
-async function startGame(ranNum1, ranNum2){
+function startGame(ranNum1, ranNum2){
   for(let block of blocks){
     setTimeout(() => {block.style.animation = `block ${getRandomArbitrary(ranNum1, ranNum2)}s infinite linear`}, 50); 
-    if(invervalArr.length === 10){
-      for(i =0; i < invervalArr.length; i++){ 
-        console.log(invervalArr[i]) 
-        await clearInterval(invervalArr[i])
-        await invervalArr.pop(i)
-      }
-    }
+
   }
 }
 startGame(5, 10)
@@ -67,21 +64,19 @@ hitBlock = false
 
 // changes blocks background color through intervals
 // puts the intervals in an array to avoid glitches with the interval when reseting the game
-async function switchColor(ranNum1, ranNum2){
-  for(let block of blocks){
-    if(invervalArr.length < 10){
-      colorSwitch = await setInterval(() => {  
-        if(hitBlock === false){
-          block.style.backgroundColor = 'green'
-          setTimeout(() => {
-            block.style.backgroundColor = 'brown'
-          }, 5000)
-        }
-      }, getRandomInt(ranNum1, ranNum2));
-      await invervalArr.push(colorSwitch)
-    }
+function switchColor(ranNum1, ranNum2){
 
- 
+  
+  for(let block of blocks){
+    colorSwitch = setInterval(() => { 
+
+      if(hitBlock === false){
+        block.style.backgroundColor = 'green'
+        setTimeout(() => {block.style.backgroundColor = 'brown'}, 5000)
+      }
+
+    }, getRandomInt(ranNum1, ranNum2));
+
   }
 }
 switchColor(10000, 50000)
@@ -95,24 +90,22 @@ function checkCollision(){
     for(let block of blocks){
       let blockrect = block.getBoundingClientRect()
       let characterRect = character.getBoundingClientRect()
-    
-      if(characterRect.x < blockrect.x +characterRect.width &&
+
+      const checking = (color) => {
+        return characterRect.x < blockrect.x +characterRect.width &&
         characterRect.x + characterRect.width > blockrect.x &&
         characterRect.y < blockrect.y + blockrect.height &&
         characterRect.y + characterRect.height > blockrect.y &&
-        block.style.backgroundColor === 'brown'
-        ){
+        block.style.backgroundColor === color
+      }
+    
+      if(checking('brown')){
           startingParams()
           hitBlock = true
           clearInterval(checkHit)
           console.log('hit detected')
         }
-      else if(characterRect.x < blockrect.x +characterRect.width &&
-        characterRect.x + characterRect.width > blockrect.x &&
-        characterRect.y < blockrect.y + blockrect.height &&
-        characterRect.y + characterRect.height > blockrect.y &&
-        block.style.backgroundColor === 'green'
-        ){  
+      else if(checking('green')){  
           coin.innerText = parseInt(coin.innerText) + 1
           block.style.backgroundColor = 'chocolate'
           setTimeout(() => {
@@ -130,19 +123,18 @@ function animationChange(ranNum1, ranNum2){
   // once it checks, the block's animation is null and give it 50 ms to start back up
   // The reason for this is to have different speeds through each itteration
   // The Window.getComputedStyle() method returns an object containing the values of all CSS properties of an element, after applying active stylesheets and resolving any basic computation those values may contain.
-  change = setInterval(() => {
+  change = setInterval(async () => {
     if(hitBlock === false){
       for(let block of blocks){
         blockStyle = window.getComputedStyle(block)
         if(parseInt(blockStyle.getPropertyValue('left')) < 0){
           block.style.animation = ""
-          setTimeout(() => {
+          setTimeout(async () => {
             block.style.animation = `block ${getRandomInt(ranNum1, ranNum2)}s infinite linear`
           }, 50);
         }
       }
     }
-    else{clearInterval(change)}
   }, 50);
 }
 animationChange(5, 10)
@@ -152,9 +144,9 @@ for (let button of tableButtons){
   button.addEventListener('click', ()=>{
     let color
     // get's the first word of Id
-    buttonName = button.id.split(' ')[0]
+    const buttonName = button.id.split(' ')[0]
     // first word of Price Id === First word of button Id
-    price = document.getElementById(`${buttonName} Price`)
+    const price = document.getElementById(`${buttonName} Price`)
     console.log(price.innerText)
 
     if(parseInt(coin.innerText) >= parseInt(price.innerText)){
@@ -209,18 +201,26 @@ for (let button of tableButtons){
 }
 
 
-async function startOver(ranNum1, ranNum2, ranNum3, ranNum4){
-  await startingParams()
-  await startGame(ranNum1, ranNum2)
+function startOver(ranNum1, ranNum2, ranNum3, ranNum4){
+
+  // Get a reference to the last interval + 1
+  const interval_id = window.setInterval(function(){}, Number.MAX_SAFE_INTEGER);
+
+  // Clear any timeout/interval up to that id
+  for (let i = 1; i < interval_id; i++) {
+    window.clearInterval(i);
+  }
+  startingParams()
+  startGame(ranNum1, ranNum2)
   hitBlock = false
-  await switchColor(ranNum3, ranNum4)
-  await checkCollision()
-  await animationChange(ranNum1, ranNum2)
+  switchColor(ranNum3, ranNum4)
+  checkCollision()
+  animationChange(ranNum1, ranNum2)
 }
 
 for(let button of rButtons){
   button.addEventListener('click', ()=>{
-    bttnName = button.id
+    const bttnName = button.id
     switch(bttnName){
       case 'easy':
         startOver(8, 13, 15000, 60000)

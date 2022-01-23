@@ -14,12 +14,23 @@ Sources: https://www.youtube.com/watch?v=xDY1TTM9sGs , https://www.w3schools.com
 
 
 
+Sources: https://keycode.info , https://www.codegrepper.com/code-examples/javascript/addeventlistener+arrow+keys 
+
+[JS code found in line 246]
+
+- EventListener has a 'keydown' parameter that if grabbed by the document (not an element) and the parameter has the event, theres a key in the object called 'keycode'. grabbing this will get the code of the key you press. you can use switch(event.keycode){} to determine to switch code after someone presses a key. Inside the curly brackets, you use case 23(keycodes are in different nums): then run the code below it
+
+
+[JS code found in line 135]
+
+- parseInt() not only changes a number's data type from a string to an integer, it also removes anything that's not an integer.
+
 
 
 
 Sources: https://www.youtube.com/watch?v=r0sy-Cr6WHY , https://developer.mozilla.org/en-US/docs/Web/API/Element/getBoundingClientRect , https://stackoverflow.com/questions/37472799/how-can-i-detect-if-two-elements-are-touching
 
-[JS Code found in line 96]
+[JS Code found in line 95]
 
 - element.getBoundingClientRect() returns the x, y, width, height of an element. Using help found from a youtube video on colision detection, I set an interval to constantly get axis point of element and checks for collision detection on the the elements.
 
@@ -56,14 +67,20 @@ Sources: Caroline, https://developer.mozilla.org/en-US/docs/Web/JavaScript/Refer
 
 
 
-Sources: https://keycode.info , https://www.codegrepper.com/code-examples/javascript/addeventlistener+arrow+keys 
-
-[JS code found in line 246]
-
-- EventListener has a 'keydown' parameter that if grabbed by the document (not an element) and the parameter has the event, theres a key in the object called 'keycode'. grabbing this will get the code of the key you press. you can use switch(event.keycode){} to determine to switch code after someone presses a key. Inside the curly brackets, you use case 23(keycodes are in different nums): then run the code below it
 
 
 
+
+
+
+
+
+
+
+
+
+
+_______________________________________________________________________________________________________________
 
 OTHER SOURCES THAT HELPED:
 - Helped get a random integer from a function provided here , https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random
@@ -77,7 +94,7 @@ OTHER SOURCES THAT HELPED:
 - Know how spread syntax works , https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_syntax 
 
 
-
+_______________________________________________________________________________________________________________
 
 
 I will be building a platformer that will have multiple objects thrown at you through diffent stages.
