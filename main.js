@@ -41,6 +41,32 @@ function getRandomArbitrary(min, max) {
 }
 
 
+
+const checkColor = () => {
+  const tabletStorage = localStorage.getItem('tablet')
+  const lControllerStorage = localStorage.getItem('lController')
+  const rControllerStorage = localStorage.getItem('rController')
+  const bgStorage = localStorage.getItem('bg')
+  const characterStorage = localStorage.getItem('character')
+
+  if (tabletStorage){
+    tablet.style.backgroundColor = tabletStorage
+  }
+  if (lControllerStorage && rControllerStorage){
+    lController.style.backgroundColor = lControllerStorage
+    rController.style.backgroundColor = rControllerStorage
+  }
+  if (bgStorage){
+    body.style.backgroundColor = bgStorage
+  }
+  if (characterStorage){
+    character.style.backgroundColor = characterStorage
+  }
+}
+
+checkColor()
+
+
 // The starting parameters of the game. places the characters and blocks in starting position
 function startingParams(){
   for(let block of blocks){
@@ -177,37 +203,43 @@ for (let button of tableButtons){
             if(tablet.style.backgroundColor === ""){
               color = prompt(`What color would you like your ${buttonName} to be?`)
               tablet.style.backgroundColor = color
+              localStorage.setItem('tablet', color)
             }
-            else{break}
-          }
-        break
-        case 'controller':
-          rController.style.backgroundColor = null
-          while(true){
-            if(rController.style.backgroundColor === ""){
-              color = prompt(`What color would you like your ${buttonName} to be?`)
-              rController.style.backgroundColor = color
-              lController.style.backgroundColor = color
-            }
-            else{break}
+            else{ break}
           }
           break
-        case 'background':
-          body.style.backgroundColor = null
-          while(true){
-            if(body.style.backgroundColor === ""){
-              color = prompt(`What color would you like your ${buttonName} to be?`)
-              body.style.backgroundColor = color
+          case 'controller':
+            rController.style.backgroundColor = null
+            while(true){
+              if(rController.style.backgroundColor === ""){
+                color = prompt(`What color would you like your ${buttonName} to be?`)
+                rController.style.backgroundColor = color
+                lController.style.backgroundColor = color
+                localStorage.setItem('lController', color)
+                localStorage.setItem('rController', color)
+              }
+              else{break}
             }
-            else{break}
-          }
-          break
-        case 'character':
-          character.style.backgroundColor = null
-          while(true){
-            if(character.style.backgroundColor === ""){
-              color = prompt(`What color would you like your ${buttonName} to be?`)
-              character.style.backgroundColor = color
+            break
+            case 'background':
+              body.style.backgroundColor = null
+              while(true){
+                if(body.style.backgroundColor === ""){
+                  color = prompt(`What color would you like your ${buttonName} to be?`)
+                  body.style.backgroundColor = color
+                  console.log(color)
+                  localStorage.setItem('bg', color)
+                }
+                else{break}
+              }
+              break
+              case 'character':
+                character.style.backgroundColor = null
+                while(true){
+                  if(character.style.backgroundColor === ""){
+                    color = prompt(`What color would you like your ${buttonName} to be?`)
+                    character.style.backgroundColor = color
+                    localStorage.setItem('character', color)
             }
             else{break}
           }
@@ -219,6 +251,9 @@ for (let button of tableButtons){
 
 
 function startOver(ranNum1, ranNum2, ranNum3, ranNum4){
+
+
+  // https://stackoverflow.com/questions/8635502/how-do-i-clear-all-intervals
 
   // Get a reference to the last interval + 1
   const interval_id = window.setInterval(function(){}, Number.MAX_SAFE_INTEGER);
@@ -290,7 +325,7 @@ for(let button of lButtons){
 }
 
 
-// Sources to help improve knowledege of switch
+// Sources to help improve knowledge of switch
 // https://www.youtube.com/watch?v=xDY1TTM9sGs
 // https://www.w3schools.com/jsref/jsref_switch.asp
 
